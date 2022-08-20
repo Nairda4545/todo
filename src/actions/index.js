@@ -1,3 +1,5 @@
+import { SET_DISPLAY } from "./types"
+
 export const addItem = (params) => {
     
 }
@@ -19,5 +21,5 @@ export const reorderItem = (params) => {
 }
 
 export const setDisplay = (renderOption) => {
-    
+    return {type: SET_DISPLAY, payload: renderOption }
 }

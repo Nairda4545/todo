@@ -5,6 +5,9 @@ import _ from "lodash";
 const List = (props) => {
     
     const renderList = props.todoList.map(item => {
+        if((props.currentListOption === 'notdone' && item.isDone) || (props.currentListOption === 'done' && !item.isDone)){
+            return null
+        }
         return <div key={item.id} className='item'>
                 <button className="right floated content">_</button>
                 <div className="right floated content description">{item.dueDate.toDateString()}</div>
@@ -20,7 +23,8 @@ const List = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        todoList: _.values(state.list)
+        todoList: _.values(state.list),
+        currentListOption: state.renderListOption
     }
 }
 

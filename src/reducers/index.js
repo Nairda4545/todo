@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { SET_DISPLAY } from "../actions/types";
 
 const SAMPLE = {
     1: {
@@ -32,7 +33,10 @@ const todoListReducer = (state = SAMPLE, action) => {
 }
 
 const renderListOptionReducer = (state = 'notdone', action) => {
+    //possible types: 'notdone', 'done', 'both'
     switch(action.type){
+        case SET_DISPLAY:
+            return action.payload
         default:
             return state
     }
