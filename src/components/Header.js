@@ -10,7 +10,9 @@ const Header = (props) => {
             return <Modal 
                 onDismiss={props.closeModal}
                 onSubmitCallback={props.addItem}
-                action='Create new item'
+                action='Add'
+                header='Add new item'
+                dueDate={new Date()}
             />
         }
     }

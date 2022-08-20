@@ -9,8 +9,8 @@ import {
 
 export const addItem = (item) => (dispatch, getState) => {
     const todoListLength = _.values(getState().list).length
-
-    dispatch({type: ADD_ITEM, payload: {[todoListLength + 1]: {id: todoListLength + 1, ...item, dueDate: new Date(), isDone: false}}})
+    item.dueDate = new Date(item.dueDate)
+    dispatch({type: ADD_ITEM, payload: {[todoListLength + 1]: {id: todoListLength + 1, ...item, isDone: false}}})
 }
 
 export const editItem = (params) => {
