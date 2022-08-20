@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { SET_DISPLAY } from "../actions/types";
+import { ADD_ITEM, CLOSE_MODAL, OPEN_MODAL, SET_DISPLAY } from "../actions/types";
 
 const SAMPLE = {
     1: {
@@ -27,6 +27,8 @@ const SAMPLE = {
 
 const todoListReducer = (state = SAMPLE, action) => {
     switch(action.type){
+        case ADD_ITEM:
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -42,7 +44,19 @@ const renderListOptionReducer = (state = 'notdone', action) => {
     }
 }
 
+const showModalReducer = (state = false, action) => {
+    switch(action.type){
+        case OPEN_MODAL:
+            return true
+        case CLOSE_MODAL:
+            return false
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
     renderListOption: renderListOptionReducer,
-    list: todoListReducer
+    list: todoListReducer,
+    showModal: showModalReducer
 })
