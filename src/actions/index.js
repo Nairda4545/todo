@@ -18,6 +18,6 @@ export const reorderItem = (params) => {
 
 }
 
-export const setDisplay = (params) => {
+export const setDisplay = (renderOption) => {
     
 }

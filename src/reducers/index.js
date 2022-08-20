@@ -1,6 +1,37 @@
 import { combineReducers } from "redux";
 
-const todoListReducer = (state = {}, action) => {
+const SAMPLE = {
+    1: {
+        id: 1,
+        title: 'Wash the cat',
+        note: 'Use room temperature soap',
+        dueDate: new Date(2022, 8, 22, 11, 27),
+        isDone: false
+    },
+    2: {
+        id: 2,
+        title: 'Boil water',
+        note: 'Do not start with frozen water',
+        dueDate: new Date(2022, 9, 22, 11, 27),
+        isDone: true
+    },
+    3: {
+        id: 3,
+        title: 'Blend the potato',
+        note: 'Add cold sugar',
+        dueDate: new Date(2023, 3, 11, 11, 27),
+        isDone: false
+    }
+}
+
+const todoListReducer = (state = SAMPLE, action) => {
+    switch(action.type){
+        default:
+            return state
+    }
+}
+
+const renderListOptionReducer = (state = 'notdone', action) => {
     switch(action.type){
         default:
             return state
@@ -8,7 +39,6 @@ const todoListReducer = (state = {}, action) => {
 }
 
 export default combineReducers({
-    potat: () => {
-        return 'potat'
-    }
+    renderListOption: renderListOptionReducer,
+    list: todoListReducer
 })
