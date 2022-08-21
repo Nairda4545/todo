@@ -1,6 +1,15 @@
 import _ from "lodash";
 import { combineReducers } from "redux";
-import { ADD_ITEM, CLOSE_MODAL, DELETE_ITEM, EDIT_ITEM, OPEN_MODAL, SET_DISPLAY, TOGGLE_ITEM } from "../actions/types";
+import { 
+    ADD_ITEM, 
+    CLOSE_MODAL, 
+    DELETE_ITEM, 
+    EDIT_ITEM, 
+    OPEN_MODAL, 
+    REORDER_ITEM, 
+    SET_DISPLAY, 
+    TOGGLE_ITEM 
+} from "../actions/types";
 
 const SAMPLE = {
     1: {
@@ -27,6 +36,7 @@ const SAMPLE = {
 }
 
 const todoListReducer = (state = JSON.parse(localStorage.getItem('todoList')), action) => {
+    let newState = {...state}
     switch(action.type){
         case ADD_ITEM:
             localStorage.setItem('todoList', JSON.stringify({...state, ...action.payload}))
@@ -35,12 +45,21 @@ const todoListReducer = (state = JSON.parse(localStorage.getItem('todoList')), a
             localStorage.setItem('todoList', JSON.stringify({...state, ...action.payload}))
             return {...state, ...action.payload}
         case DELETE_ITEM:
-            const newState = _.omit(state, action.payload)
+            newState = _.omit(state, action.payload)
             localStorage.setItem('todoList', JSON.stringify({...newState}))
             return {...newState}
         case TOGGLE_ITEM:
             state[action.payload].isDone = !state[action.payload].isDone
+            localStorage.setItem('todoList', JSON.stringify({...state}))
             return {...state}
+        case REORDER_ITEM:
+            if(action.payload.keyHolder === 0){
+                return state
+            }
+            newState[action.payload.keyHolder] = {...state[action.payload.id], id: action.payload.keyHolder}
+            newState[action.payload.id] = {...state[action.payload.keyHolder], id: action.payload.id}
+            localStorage.setItem('todoList', JSON.stringify({...newState}))
+            return {...newState}
         default:
             return state
     }

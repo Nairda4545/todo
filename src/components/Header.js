@@ -27,7 +27,7 @@ const Header = (props) => {
             <button className={`ui button ${props.currentListOption === 'done' ? 'active' : ''}`} onClick={() => {props.setDisplay('done')}}>Show finished</button>
         </div>
         <div className="item">
-            <button className={`ui button ${props.currentListOption === 'both' ? 'active' : ''}`} onClick={() => {props.setDisplay('both')}}>Show both</button>
+            <button className={`ui button ${props.currentListOption === 'both' ? 'active' : ''}`} onClick={() => {props.setDisplay('both')}}>Show All</button>
         </div>
         <div className="item">
             <button className="ui button primary" onClick={() => props.openModal('create')}>Create</button>

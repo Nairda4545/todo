@@ -2,7 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import { openModal, closeModal, editItem, deleteItem, toggleItem } from "../actions";
+import { 
+    openModal, 
+    closeModal, 
+    editItem,
+    deleteItem, 
+    toggleItem,
+    reorderItemUp,
+    reorderItemDown
+} from "../actions";
 import Modal from "./Modal";
 
 const List = (props) => {
@@ -53,8 +61,15 @@ const List = (props) => {
                 <button className="ui right floated button primary" onClick={() => props.toggleItem(item.id)}>Toggle Status</button>
                 {renderStatus()}
                 <div className="right floated description">{new Date(item.dueDate).toDateString()}</div>
-                <div className="header">{item.title}</div>
-                <div className="description">{item.note}</div>
+                <div className="left floated">
+                    <i style={{ cursor: "pointer" }} className="chevron up icon" onClick={() => props.reorderItemUp(item.id)}></i>
+                    <br></br>
+                    <i style={{ cursor: "pointer" }} className="chevron down icon" onClick={() => props.reorderItemDown(item.id)}></i>
+                </div>
+                <div className="left floated">
+                    <div className="header">{item.title}</div>
+                    <div className="description">{item.note}</div>
+                </div>
             </div>
     })
 
@@ -71,4 +86,14 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect( mapStateToProps, { openModal, closeModal, editItem, deleteItem, toggleItem } )(List)
+export default connect( 
+    mapStateToProps, 
+    {   
+        openModal, 
+        closeModal, 
+        editItem, 
+        deleteItem, 
+        toggleItem, 
+        reorderItemUp,
+        reorderItemDown
+    } )(List)
