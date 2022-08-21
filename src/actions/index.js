@@ -12,9 +12,13 @@ import {
 } from "./types"
 
 export const addItem = (item) => (dispatch, getState) => {
-    const todoListLength = _.values(getState().list).length
+    const todoList = getState().list
+    let newId = 1
+    if(todoList){
+        newId = toInteger(Object.keys(todoList)[Object.keys(todoList).length - 1]) + 1
+    }
     item.dueDate = new Date(item.dueDate)
-    dispatch({type: ADD_ITEM, payload: {[todoListLength + 1]: {...item, id: todoListLength + 1}}})
+    dispatch({type: ADD_ITEM, payload: {[newId]: {...item, id: newId}}})
 }
 
 export const editItem = (item) => {
