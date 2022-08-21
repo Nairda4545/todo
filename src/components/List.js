@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import { openModal, closeModal, editItem, deleteItem } from "../actions";
+import { openModal, closeModal, editItem, deleteItem, toggleItem } from "../actions";
 import Modal from "./Modal";
 
 const List = (props) => {
@@ -50,8 +50,9 @@ const List = (props) => {
         return <div key={item.id} className='item content'>
                 {renderModal(item)}
                 <button className="ui right floated button" onClick={() => props.openModal('edit', item.id)}>Edit</button>
-                <div className="right floated description">{new Date(item.dueDate).toDateString()}</div>
+                <button className="ui right floated button primary" onClick={() => props.toggleItem(item.id)}>Toggle Status</button>
                 {renderStatus()}
+                <div className="right floated description">{new Date(item.dueDate).toDateString()}</div>
                 <div className="header">{item.title}</div>
                 <div className="description">{item.note}</div>
             </div>
@@ -70,4 +71,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect( mapStateToProps, { openModal, closeModal, editItem, deleteItem } )(List)
+export default connect( mapStateToProps, { openModal, closeModal, editItem, deleteItem, toggleItem } )(List)

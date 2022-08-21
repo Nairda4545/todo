@@ -6,7 +6,8 @@ import {
     DELETE_ITEM, 
     EDIT_ITEM, 
     OPEN_MODAL, 
-    SET_DISPLAY 
+    SET_DISPLAY, 
+    TOGGLE_ITEM
 } from "./types"
 
 export const addItem = (item) => (dispatch, getState) => {
@@ -24,8 +25,8 @@ export const deleteItem = (id) => {
     return {type: DELETE_ITEM, payload: id}
 }
 
-export const toggleItem = (params) => {
-    
+export const toggleItem = (id) => {
+    return {type: TOGGLE_ITEM, payload: id}
 }
 
 export const reorderItem = (params) => {

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { combineReducers } from "redux";
-import { ADD_ITEM, CLOSE_MODAL, DELETE_ITEM, EDIT_ITEM, OPEN_MODAL, SET_DISPLAY } from "../actions/types";
+import { ADD_ITEM, CLOSE_MODAL, DELETE_ITEM, EDIT_ITEM, OPEN_MODAL, SET_DISPLAY, TOGGLE_ITEM } from "../actions/types";
 
 const SAMPLE = {
     1: {
@@ -38,6 +38,9 @@ const todoListReducer = (state = JSON.parse(localStorage.getItem('todoList')), a
             const newState = _.omit(state, action.payload)
             localStorage.setItem('todoList', JSON.stringify({...newState}))
             return {...newState}
+        case TOGGLE_ITEM:
+            state[action.payload].isDone = !state[action.payload].isDone
+            return {...state}
         default:
             return state
     }
