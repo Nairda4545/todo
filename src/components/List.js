@@ -2,10 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import { openModal, closeModal, editItem } from "../actions";
+import { openModal, closeModal, editItem, deleteItem } from "../actions";
 import Modal from "./Modal";
 
 const List = (props) => {
+    const renderDeleteButton = (itemId) => {
+        return <button 
+            className="ui right floated button negative" 
+            onClick={(e) => {
+                e.preventDefault()
+                props.deleteItem(itemId)
+                props.closeModal()
+            }}>
+                Delete
+            </button>
+    }
 
     const renderList = props.todoList.map(item => {
         const renderModal = (itemProps) => {
@@ -20,6 +31,7 @@ const List = (props) => {
                     title={itemProps.title}
                     note={itemProps.note}
                     id={itemProps.id}
+                    renderDelete={renderDeleteButton}
                 />
             }
         }
@@ -58,4 +70,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect( mapStateToProps, { openModal, closeModal, editItem } )(List)
+export default connect( mapStateToProps, { openModal, closeModal, editItem, deleteItem } )(List)

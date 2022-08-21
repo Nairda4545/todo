@@ -51,6 +51,7 @@ const Modal = (props) => {
                             <Field name="note" render={renderInput} label="Enter note" placeholder='Note' />
                             <Field name="dueDate" render={renderInput} type='date' label='Due Date'/>
                             <button className="ui button primary">{props.action}</button>
+                            {props.renderDelete(props.id)}
                         </form>
                     }}
                 </Form>

@@ -1,5 +1,6 @@
+import _ from "lodash";
 import { combineReducers } from "redux";
-import { ADD_ITEM, CLOSE_MODAL, OPEN_MODAL, SET_DISPLAY } from "../actions/types";
+import { ADD_ITEM, CLOSE_MODAL, DELETE_ITEM, EDIT_ITEM, OPEN_MODAL, SET_DISPLAY } from "../actions/types";
 
 const SAMPLE = {
     1: {
@@ -30,6 +31,13 @@ const todoListReducer = (state = JSON.parse(localStorage.getItem('todoList')), a
         case ADD_ITEM:
             localStorage.setItem('todoList', JSON.stringify({...state, ...action.payload}))
             return {...state, ...action.payload}
+        case EDIT_ITEM:
+            localStorage.setItem('todoList', JSON.stringify({...state, ...action.payload}))
+            return {...state, ...action.payload}
+        case DELETE_ITEM:
+            const newState = _.omit(state, action.payload)
+            localStorage.setItem('todoList', JSON.stringify({...newState}))
+            return {...newState}
         default:
             return state
     }

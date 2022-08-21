@@ -14,6 +14,7 @@ const Header = (props) => {
                 header='Add new item'
                 dueDate={new Date()}
                 isDone={false}
+                renderDelete={() => null}
             />
         }
     }

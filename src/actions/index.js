@@ -3,6 +3,8 @@ import _ from "lodash"
 import { 
     ADD_ITEM,
     CLOSE_MODAL, 
+    DELETE_ITEM, 
+    EDIT_ITEM, 
     OPEN_MODAL, 
     SET_DISPLAY 
 } from "./types"
@@ -15,11 +17,11 @@ export const addItem = (item) => (dispatch, getState) => {
 
 export const editItem = (item) => {
     item.dueDate = new Date(item.dueDate)
-    return {type: ADD_ITEM, payload: {[item.id]: {...item}}}
+    return {type: EDIT_ITEM, payload: {[item.id]: {...item}}}
 }
 
-export const deleteItem = (params) => {
-
+export const deleteItem = (id) => {
+    return {type: DELETE_ITEM, payload: id}
 }
 
 export const toggleItem = (params) => {
