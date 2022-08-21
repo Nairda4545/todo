@@ -25,9 +25,10 @@ const SAMPLE = {
     }
 }
 
-const todoListReducer = (state = SAMPLE, action) => {
+const todoListReducer = (state = JSON.parse(localStorage.getItem('todoList')), action) => {
     switch(action.type){
         case ADD_ITEM:
+            localStorage.setItem('todoList', JSON.stringify({...state, ...action.payload}))
             return {...state, ...action.payload}
         default:
             return state
@@ -47,7 +48,7 @@ const renderListOptionReducer = (state = 'notdone', action) => {
 const showModalReducer = (state = false, action) => {
     switch(action.type){
         case OPEN_MODAL:
-            return true
+            return {type: action.payload.type, id: action.payload.id}
         case CLOSE_MODAL:
             return false
         default:

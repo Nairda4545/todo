@@ -6,13 +6,14 @@ import Modal from "./Modal";
 
 const Header = (props) => {
     const renderModal = () => {
-        if(props.showModal){
+        if(props.showModal.type === 'create'){
             return <Modal 
                 onDismiss={props.closeModal}
                 onSubmitCallback={props.addItem}
                 action='Add'
                 header='Add new item'
                 dueDate={new Date()}
+                isDone={false}
             />
         }
     }
@@ -28,7 +29,7 @@ const Header = (props) => {
             <button className={`ui button ${props.currentListOption === 'both' ? 'active' : ''}`} onClick={() => {props.setDisplay('both')}}>Show both</button>
         </div>
         <div className="item">
-            <button className="ui button primary" onClick={() => props.openModal()}>Create</button>
+            <button className="ui button primary" onClick={() => props.openModal('create')}>Create</button>
         </div>
         {renderModal()}
     </div>

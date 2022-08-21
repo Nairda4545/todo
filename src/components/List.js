@@ -2,9 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
+import { openModal, closeModal, editItem } from "../actions";
+import Modal from "./Modal";
+
 const List = (props) => {
-    
+
     const renderList = props.todoList.map(item => {
+        const renderModal = (itemProps) => {
+            if(props.showModal.type === 'edit' && props.showModal.id === itemProps.id){
+                return <Modal 
+                    onDismiss={props.closeModal}
+                    onSubmitCallback={props.editItem}
+                    action='Edit'
+                    header='Edit item'
+                    dueDate={new Date(itemProps.dueDate)}
+                    isDone={itemProps.isDone}
+                    title={itemProps.title}
+                    note={itemProps.note}
+                    id={itemProps.id}
+                />
+            }
+        }
+
         const renderStatus = () => {
             if(item.isDone){
                 return <div className="ui green label right floated content">Done</div>
@@ -16,9 +35,10 @@ const List = (props) => {
         if((props.currentListOption === 'notdone' && item.isDone) || (props.currentListOption === 'done' && !item.isDone)){
             return null
         }
-        return <div key={item.id} className='item'>
-                <button className="ui right floated content button">Edit</button>
-                <div className="right floated content description">{item.dueDate.toDateString()}</div>
+        return <div key={item.id} className='item content'>
+                {renderModal(item)}
+                <button className="ui right floated button" onClick={() => props.openModal('edit', item.id)}>Edit</button>
+                <div className="right floated description">{new Date(item.dueDate).toDateString()}</div>
                 {renderStatus()}
                 <div className="header">{item.title}</div>
                 <div className="description">{item.note}</div>
@@ -33,8 +53,9 @@ const List = (props) => {
 const mapStateToProps = (state) => {
     return {
         todoList: _.values(state.list),
-        currentListOption: state.renderListOption
+        currentListOption: state.renderListOption,
+        showModal: state.showModal
     }
 }
 
-export default connect( mapStateToProps )(List)
+export default connect( mapStateToProps, { openModal, closeModal, editItem } )(List)

@@ -26,9 +26,11 @@ const Modal = (props) => {
             <div onClick={(e) => {e.stopPropagation()}} className="ui standard modal visible active">
                 <Form 
                     initialValues={{
+                        id: props.id,
                         title: props.title,
                         note: props.note,
-                        dueDate: formattedDate
+                        dueDate: formattedDate,
+                        isDone: props.isDone
                     }}
                     onSubmit={(formProps) => {
                         props.onSubmitCallback(formProps)
